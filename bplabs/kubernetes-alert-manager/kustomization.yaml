@@ -1,0 +1,5 @@
+resources:
+  - AlertTemplateConfigMap.yaml
+  - AlertManagerConfigmap.yaml
+  - Deployment.yaml
+  - Service.yaml

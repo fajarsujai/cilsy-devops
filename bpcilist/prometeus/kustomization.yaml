@@ -1,0 +1,15 @@
+resources:
+  - p-monitoring-ns.yaml
+  - p-prometheus-cr.yml
+  - p-prometheus-configmap.yaml
+  - p-prometheus-deployment.yaml
+  - p-prometheus-service.yml
+  # - p-prometheus-ingress.yml
+  - p-metrics-sa.yaml
+  - p-metrics-rbac.yaml
+  - p-metrics-dpy.yaml
+  - p-metrics-svc.yaml
+  - p-grafana-datasource-configmap.yaml
+  - p-grafana-dpy.yaml
+  - p-grafana-svc.yaml
+  - p-grafana-ingress.yaml

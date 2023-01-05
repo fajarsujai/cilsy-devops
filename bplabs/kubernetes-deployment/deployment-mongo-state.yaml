@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongo-bp
+spec:
+  serviceName: mongo-stateful-service
+  selector:
+    matchExpressions:
+      - key: app
+        operator: In
+        values:
+          - mongo-bp
+      - key: env
+        operator: In
+        values:
+          - staging
+  replicas: 1
+
+  template:
+    metadata:
+      labels:
+        app: mongo-bp
+        env: staging
+    spec:
+      containers:
+      - name: mongo-bp
+        image: mongo:3.6.19-xenial
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 27017
+        volumeMounts:
+            - mountPath: /data/db
+              name: pv-mongo-storage
+      volumes:
+        - name: pv-mongo-storage
+          persistentVolumeClaim:
+            claimName: pvc-mongo
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-bp-service
+spec:
+  type: ClusterIP
+  selector:
+    app: mongo-bp
+  ports:
+  - port: 27017
+    targetPort: 27017
+    protocol: TCP
+

@@ -1,0 +1,12 @@
+namespace: staging
+resources:
+  - namespace-staging.yaml
+  # - namespace-production.yaml
+  # - pvc-be.yaml
+  # - pvc-fe.yaml
+  - pvc-mongo.yaml
+  - deployment-mongo-state.yaml
+  # - deployment-mongo.yaml
+  - deployment-be.yaml
+  - deployment-fe.yaml
+  - ingress-bp.yaml

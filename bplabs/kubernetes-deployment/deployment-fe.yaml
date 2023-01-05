@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-bp
+spec:
+  selector:
+    matchExpressions:
+      - key: app
+        operator: In
+        values:
+          - frontend-bp
+      - key: env
+        operator: In
+        values:
+          - staging
+  replicas: 1
+  revisionHistoryLimit: 5
+  template:
+    metadata:
+      labels:
+        app: frontend-bp
+        env: staging
+    spec:
+      containers:
+      - name: frontend-bp
+        image: fajarsujai/bpfe:5-main-08a7128
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+      #   volumeMounts:
+      #     - name: pv-fe-storage3
+      #       mountPath: /var/www/html
+      # volumes:
+      #   - name: pv-fe-storage3
+      #     persistentVolumeClaim:
+      #       claimName: pvc-fe3
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-bp-service
+spec:
+  type: NodePort
+  selector:
+    app: frontend-bp
+  ports:
+  - port: 3000
+    targetPort: 3000
+    protocol: TCP
+
